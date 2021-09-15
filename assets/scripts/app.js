@@ -1,6 +1,8 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
 let logEntries = [];
+
+// set of operators not enum but alike enum
 const operators = Object.freeze({
   ADD: '+', 
   SUBTRACT: '-', 
@@ -37,14 +39,13 @@ function writeToLog(
 }
 
 function calculateResult(myOperator) {
+  console.log(this);
   const enteredNumber = getUserNumberInput(); 
   const initialResult = currentResult;
   let mathOperator; 
-
   if(operators.ADD === myOperator) {
     currentResult += enteredNumber; 
     mathOperator = myOperator; 
-    
 
   } else if(operators.SUBTRACT === myOperator) {
     currentResult -= enteredNumber; 
@@ -54,7 +55,7 @@ function calculateResult(myOperator) {
     currentResult *= enteredNumber; 
     mathOperator = myOperator; 
 
-  } else {
+  } else if(operators.DIVIDE === myOperator){
     currentResult /= enteredNumber; 
     mathOperator = myOperator; 
   }
@@ -62,23 +63,23 @@ function calculateResult(myOperator) {
   writeToLog(mathOperator, initialResult, enteredNumber, currentResult);
 }
 
-function add() {
-  calculateResult(operators.ADD); 
-}
+// function add() {
+//   calculateResult(operators.ADD); 
+// }
 
-function subtract() {
-  calculateResult(operators.SUBTRACT);
-}
+// function subtract() {
+//   calculateResult(operators.SUBTRACT);
+// }
 
-function multiply() {
-  calculateResult(operators.MULTIPLY);
-}
+// function multiply() {
+//   calculateResult(operators.MULTIPLY);
+// }
 
-function divide() {
-  calculateResult(operators.DIVIDE);
-}
+// function divide() {
+//   calculateResult(operators.DIVIDE);
+// }
 
-addBtn.addEventListener('click', add);
-subtractBtn.addEventListener('click', subtract);
-multiplyBtn.addEventListener('click', multiply);
-divideBtn.addEventListener('click', divide);
+addBtn.addEventListener('click', calculateResult.bind(this,operators.ADD));
+subtractBtn.addEventListener('click', calculateResult.bind(this, operators.SUBTRACT));
+multiplyBtn.addEventListener('click', calculateResult.bind(this, operators.MULTIPLY));
+divideBtn.addEventListener('click', calculateResult.bind(this, operators.DIVIDE));
